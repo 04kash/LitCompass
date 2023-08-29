@@ -62,3 +62,5 @@ def write_urls_to_csv():
         writer = csv.writer(f)
         for url in new_urls:
             writer.writerow(url)
+
+#TODO:make sure there are no duplicate books
