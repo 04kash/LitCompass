@@ -33,34 +33,39 @@ def get_page_urls():
     return urls
 
 
-def get_book_urls():
+def get_books():
     urls = get_page_urls()
-    book_urls = []
+    books = []
     for url in urls:
         response = requests.get(url)
         soup = BeautifulSoup(response.content, 'html.parser')
-        titles = soup.find_all('h3', class_="Text Text__title3 Text__umber")
-        for title in titles:
-            book_url = title.find('a', attrs={'data-testid': "bookTitle"})['href']
-            book_urls.append([book_url])
-    return book_urls
+        book_infos = soup.find_all('div', class_='BookListItem__body')
+        for book_info in book_infos:
+            title = book_info.find('h3', class_='Text Text__title3 Text__umber').text
+            author = book_info.find('div', class_='BookListItem__authors').text
+            description = book_info.find('span',class_="Formatted").text
+            rating = book_info.find('span', class_="AverageRating__ratingValue").text
+            rating_count = book_info.find('span',class_="Text Text__body3 Text__subdued").text
+            book = [title,author,description,rating,rating_count]
+            books.append(book)
+    return books
 
 
-def write_urls_to_csv():
-    urls = get_book_urls()
-    existing_urls = []
-    with open('goodreads.csv') as f:
+def write_books_to_csv():
+    books = get_books()
+    existing_books = []
+    with open('books_goodreads.csv') as f:
         reader = csv.reader(f)
         for row in reader:
-            existing_urls.append(row)
-    new_urls = []
-    for i in range(len(urls)):
-        if urls[i] not in existing_urls:
-            new_urls.append(urls[i])
+            existing_books.append(row)
+    new_books = []
+    for i in range(len(books)):
+        if books[i] not in existing_books:
+            new_books.append(books[i])
 
-    with open('goodreads.csv', 'a', encoding='UTF8', newline='') as f:
+    with open('books_goodreads.csv', 'a', encoding='UTF8', newline='') as f:
         writer = csv.writer(f)
-        for url in new_urls:
-            writer.writerow(url)
+        for book in new_books:
+            writer.writerow(book)
 
-#TODO:make sure there are no duplicate books
+# TODO:make sure there are no duplicate books
