@@ -54,7 +54,7 @@ def get_books():
 def write_books_to_csv():
     books = get_books()
     existing_books = []
-    with open('books_goodreads.csv') as f:
+    with open('books_goodreads.csv',encoding='UTF8') as f:
         reader = csv.reader(f)
         for row in reader:
             existing_books.append(row)
