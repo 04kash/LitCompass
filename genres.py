@@ -2,7 +2,7 @@ import openai
 import csv
 import time
 
-openai.api_key = "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"
+
 
 
 def get_genres(book_descriptions: list):
