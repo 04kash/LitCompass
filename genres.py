@@ -2,7 +2,8 @@ import openai
 import csv
 import time
 
-
+# TODO:Find a better way getting genres from book titles so that the database is dynamically created everytime users
+# access it
 
 
 def get_genres(book_descriptions: list):
