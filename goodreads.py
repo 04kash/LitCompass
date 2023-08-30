@@ -57,15 +57,13 @@ def write_books_to_csv():
     with open('books_goodreads.csv',encoding='UTF8') as f:
         reader = csv.reader(f)
         for row in reader:
-            existing_books.append(row)
+            existing_books.append(row[0])
     new_books = []
     for i in range(len(books)):
-        if books[i] not in existing_books:
+        if books[i][0] not in existing_books: #checks if title names are same
             new_books.append(books[i])
 
     with open('books_goodreads.csv', 'a', encoding='UTF8', newline='') as f:
         writer = csv.writer(f)
         for book in new_books:
             writer.writerow(book)
-
-# TODO:make sure there are no duplicate books
