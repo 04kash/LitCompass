@@ -3,7 +3,7 @@ import csv
 import time
 
 # TODO:Find a better way getting genres from book titles so that the database is dynamically created everytime users
-# access it
+# access it, the current process would required me to update the database every month.
 
 
 def get_genres(book_descriptions: list):
