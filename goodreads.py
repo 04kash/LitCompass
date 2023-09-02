@@ -102,8 +102,6 @@ def get_available_genres():
     for book in books:
         genre = ast.literal_eval(str(book[2]))
         genres.extend(genre)
-        print(genres)
-    print(genres)
-    print(len(genres))
-    # print(genres_unique)
-    # print(len(genres_unique))
+    genres_unique_set = set(genres)
+    genres_unique = list(genres_unique_set)
+    return genres_unique
